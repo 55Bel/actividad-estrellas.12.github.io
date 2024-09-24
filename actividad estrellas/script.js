@@ -6,7 +6,7 @@ fetch(URL)
     if (!response.ok) {
       throw new Error('Error en la solicitud');
     }
-    return response.json(); // o response.text(), response.blob(), etc.
+    return response.json();
   })
   .then(data => {
     // Manejo de los datos recibidos
@@ -25,10 +25,21 @@ fetch(URL)
         const li = document.createElement("li");
         li.innerHTML += `
         Nombre:${cliente.name} <br>
-        Compañia: ${cliente.company} ${cliente.numberrange} 
+        Compañia: ${cliente.company} <span class="valor">Valoración: ${estrellas(cliente.numberrange)}</span>
         <hr>
         `;
         lista.appendChild(li);
     }); 
-}
+};
 
+function estrellas(rango){
+  let estrellas = '';
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rango) {
+        estrellas += `<span class="fa fa-star checked"></span>`
+      } else {
+        estrellas += `<span class="fa fa-star"></span>`
+      }
+    };
+    return estrellas
+};
